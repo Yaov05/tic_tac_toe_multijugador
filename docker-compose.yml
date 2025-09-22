@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: tictactoe_db
+    restart: always
+    environment:
+      POSTGRES_USER: tictactoe
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: tictactoe
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./server
+    container_name: tictactoe_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://tictactoe:secret@db:5432/tictactoe?sslmode=disable
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./client
+    container_name: tictactoe_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8080
+
+volumes:
+  db_data:
