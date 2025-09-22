@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: tictactoe
-      POSTGRES_PASSWORD: secret
+      POSTGRES_PASSWORD: u&4f8qzjE4h7
       POSTGRES_DB: tictactoe
     ports:
       - "5432:5432"
@@ -22,9 +22,9 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://tictactoe:secret@db:5432/tictactoe?sslmode=disable
+      DATABASE_URL: ${DATABASE_URL}
     ports:
-      - "8080:8080"
+      - "8081:8081"
 
   frontend:
     build: ./client
@@ -35,7 +35,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_URL: http://localhost:8080
+      VITE_API_URL: http://localhost:8081
 
 volumes:
   db_data:
