@@ -22,8 +22,9 @@ type Room struct {
 }
 
 type Message struct {
-	Type string `json:"type"`
-	Room string `json:"room,omitempty"`
-	Name string `json:"name,omitempty"`
-	Move [2]int `json:"move,omitempty"` // Fila, columna
+	Type  string `json:"type"`
+	Room  string `json:"room,omitempty"`
+	NameX string `json:"nameX,omitempty"`
+	NameO string `json:"nameO,omitempty"`
+	Move  [2]int `json:"move,omitempty"`
 }
