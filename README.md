@@ -1,8 +1,5 @@
 # Tic-Tac-Toe Multijugador (Go + React + PostgreSQL)
 
-Prueba técnica: implementación de un juego de Tres en línea (Tic-Tac-Toe) con salas multijugador,
-comunicación en tiempo real mediante WebSockets, persistencia en PostgreSQL y panel de estadísticas.
-
 
 ## 🛠️ Tecnologías
 - Backend: Go (net/http, gorilla/websocket, pgx)

@@ -18,6 +18,7 @@ function App() {
   const [board, setBoard] = useState(Array(3).fill().map(() => Array(3).fill("")));
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     console.log("Conectando al WebSocket...");
@@ -50,6 +51,7 @@ function App() {
         setPlayerX(player?.name);
         setPlayer({ name: player?.name, symbol: "X" });
         setTurn("X");
+        setErrorMessage(""); // Clear any errors
         // reiniciar
         setGameOver(false);
         setWinner(null);
@@ -63,6 +65,7 @@ function App() {
 
         setPlayerX(msg.playerX);
         setPlayerO(msg.playerO);
+        setErrorMessage(""); // Clear any errors
         // reiniciar
         setGameOver(false);
         setWinner(null);
@@ -83,6 +86,7 @@ function App() {
       }
       if (msg.type === "error") {
         console.log("Error:", msg.message);
+        setErrorMessage(msg.message);
       }
     };
   }, [ws, board, player]);
@@ -107,7 +111,12 @@ function App() {
     }}>
       <div style={{ width: "100%", maxWidth: "800px" }}>
         {!room ? (
-          <Lobby sendMessage={sendMessage} setPlayer={setPlayer} />
+          <Lobby 
+            sendMessage={sendMessage} 
+            setPlayer={setPlayer} 
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+          />
         ) : (
           <GameBoard
             board={board}

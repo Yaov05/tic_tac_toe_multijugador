@@ -1,15 +1,25 @@
 import { useState } from "react"
 
-function Lobby({ sendMessage, setPlayer }) {
+function Lobby({ sendMessage, setPlayer, errorMessage, setErrorMessage }) {
     const [name, setName] = useState("");
     const [room, setRoom] = useState("");
 
     const createRoom = () => {
+        if (!name.trim() || !room.trim()) {
+            setErrorMessage("Por favor, completa todos los campos");
+            return;
+        }
+        setErrorMessage(""); // Clear any previous errors
         setPlayer({ name });
         sendMessage({ type: "createRoom", room, nameX: name });
     };
 
     const joinRoom = () => {
+        if (!name.trim() || !room.trim()) {
+            setErrorMessage("Por favor, completa todos los campos");
+            return;
+        }
+        setErrorMessage(""); // Clear any previous errors
         setPlayer({ name });
         sendMessage({ type: "joinRoom", room, nameO: name });
     };
@@ -31,6 +41,20 @@ function Lobby({ sendMessage, setPlayer }) {
                 minWidth: "350px"
             }}>
                 <h2 style={{ color: "purple", marginBottom: "25px" }}>Lobby</h2>
+                
+                {errorMessage && (
+                    <div style={{
+                        backgroundColor: "#ffebee",
+                        color: "#c62828",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        marginBottom: "20px",
+                        fontSize: "0.9rem",
+                        border: "1px solid #ffcdd2"
+                    }}>
+                        {errorMessage}
+                    </div>
+                )}
 
                 <div style={{ marginBottom: "20px" }}>
                     <input
