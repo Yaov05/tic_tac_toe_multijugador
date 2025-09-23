@@ -30,6 +30,8 @@ Esto construirá las imágenes y levantará el api en Go, el cliente en React y 
 - 🎨 **Frontend (UI del juego):**  
   👉 [http://localhost:5173](http://localhost:5173)
 
+Basta con entrar a esta dirección desde dos pestañas del navegador, o desde dos dispositivos dentro de la misma red
+
 - ⚙️ **Backend (API + WebSocket):**  
   👉 [http://localhost:8081](http://localhost:8081)
 
